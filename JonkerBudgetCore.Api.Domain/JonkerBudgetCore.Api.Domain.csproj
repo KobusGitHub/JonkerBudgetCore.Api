@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommsApi.Client.Core" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="1.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JonkerBudgetCore.Api.Auth\JonkerBudgetCore.Api.Auth.csproj" />
+    <ProjectReference Include="..\JonkerBudgetCore.Api.Domain.Models\JonkerBudgetCore.Api.Domain.Models.csproj" />
+    <ProjectReference Include="..\JonkerBudgetCore.Api.Persistence\JonkerBudgetCore.Api.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Expenses\" />
+  </ItemGroup>
+
+</Project>

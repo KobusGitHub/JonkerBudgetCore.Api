@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JonkerBudgetCore.Api.Api.ViewModels\JonkerBudgetCore.Api.Api.ViewModels.csproj" />
+    <ProjectReference Include="..\JonkerBudgetCore.Api.Entities\JonkerBudgetCore.Api.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

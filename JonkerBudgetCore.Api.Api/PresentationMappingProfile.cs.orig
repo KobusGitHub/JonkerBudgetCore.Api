@@ -1,0 +1,153 @@
+using AutoMapper;
+using JonkerBudgetCore.Api.Api.ViewModels;
+using JonkerBudgetCore.Api.Api.ViewModels.ApprovalChains;
+using JonkerBudgetCore.Api.Api.ViewModels.Approvers;
+using JonkerBudgetCore.Api.Api.ViewModels.BusinessUnit;
+using JonkerBudgetCore.Api.Api.ViewModels.BusinessUnitUsers;
+using JonkerBudgetCore.Api.Api.ViewModels.CapexBudgets;
+using JonkerBudgetCore.Api.Api.ViewModels.CapexClaims;
+using JonkerBudgetCore.Api.Api.ViewModels.CapexUsers;
+using JonkerBudgetCore.Api.Api.ViewModels.Company;
+using JonkerBudgetCore.Api.Api.ViewModels.CompanyUsers;
+using JonkerBudgetCore.Api.Api.ViewModels.Divisions;
+using JonkerBudgetCore.Api.Api.ViewModels.EscalationChains;
+using JonkerBudgetCore.Api.Api.ViewModels.Shared;
+using JonkerBudgetCore.Api.Api.ViewModels.Users;
+using JonkerBudgetCore.Api.Api.ViewModels.Vendor;
+using JonkerBudgetCore.Api.Auth;
+using JonkerBudgetCore.Api.Domain.Models.ApprovalChains;
+using JonkerBudgetCore.Api.Domain.Models.BusinessUnits;
+using JonkerBudgetCore.Api.Domain.Models.Capex;
+using JonkerBudgetCore.Api.Domain.Models.CapexBudgets;
+using JonkerBudgetCore.Api.Domain.Models.CapexClaims;
+using JonkerBudgetCore.Api.Domain.Models.CapexUsers;
+using JonkerBudgetCore.Api.Domain.Models.Companies;
+using JonkerBudgetCore.Api.Domain.Models.Currencies;
+using JonkerBudgetCore.Api.Domain.Models.Divisions;
+using JonkerBudgetCore.Api.Domain.Models.EscalationChains;
+using JonkerBudgetCore.Api.Domain.Models.FinancialYears;
+using JonkerBudgetCore.Api.Domain.Models.Users;
+using System.Linq;
+using JonkerBudgetCore.Api.Domain.Models.Vendors;
+
+namespace JonkerBudgetCore.Api.Domain
+{
+    public class PresentationMappingProfile : Profile
+    {
+        public PresentationMappingProfile()
+        {
+            CreateMap<User, UserViewModel>().ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Lastname))
+                .ForMember(dest => dest.IsActiveDirectoryUser, opt => opt.MapFrom(src => src.IsActiveDirectoryUser))
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UserRoles.Select(match => match.RoleId))); 
+
+            CreateMap<CapexClaim, CapexClaimViewModel>();
+
+            CreateMap<CapexClaimsDetailsModel, CapexClaimViewModel>()
+                .ForMember(dest => dest.CapexBudgetId, opt => opt.MapFrom(src => src.ClaimBudget.Id))
+                .ForMember(dest => dest.CapexBudgetName, opt => opt.MapFrom(src => src.ClaimBudget.Name))
+                .ForMember(dest => dest.ClaimStateId, opt => opt.MapFrom(src => src.ClaimState.Id))
+                .ForMember(dest => dest.ClaimStateName, opt => opt.MapFrom(src => src.ClaimState.Name))
+                .ForMember(dest => dest.CreatedDateUtc, opt => opt.MapFrom(src => src.CapexClaim.CreatedDateUtc))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.CapexClaim.Id))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.CapexClaim.Title))
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.CapexClaim.Value))
+                .ForMember(dest => dest.VendorId, opt => opt.MapFrom(src => src.Vendor.Id))
+                .ForMember(dest => dest.VendorName, opt => opt.MapFrom(src => src.Vendor.Name));                
+
+            CreateMap<CapexBudget, CapexBudgetViewModel>();
+            CreateMap<CapexBudget, CapexBudgetDetailsViewModel>()
+                .ForMember(dest => dest.Claims, opt => opt.MapFrom(src => src.CapexClaims))
+                .ForMember(dest => dest.UseDivisionDefaultApprovalChain, opt => opt.MapFrom(src => src.Division.ApprovalChainDefaultId == src.ApprovalChainId))
+                .ForMember(dest => dest.UseDivisionDefaultEscalationChain, opt => opt.MapFrom(src => src.Division.EscalationChainDefaultId == src.EscalationChainId))
+                .ForMember(dest => dest.UseOobDivisionDefaultApprovalChain, opt => opt.MapFrom(src => src.Division.OobApprovalChainDefaultId == src.OobApprovalChainId))
+                .ForMember(dest => dest.UseOobDivisionDefaultEscalationChain, opt => opt.MapFrom(src => src.Division.OobEscalationChainDefaultId == src.OobEscalationChainId))
+                .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.CapexBudgetUsers));
+
+            CreateMap<CapexBudgetUser, CapexUserPermissionViewModel>()
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username));            
+
+            CreateMap<CapexBudget, DropDownViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Name));
+
+            CreateMap<ApprovalChainApprover, ApprovalChainApproverViewModel>()
+                .ForMember(dest => dest.Sequence, opt => opt.MapFrom(src => src.SequenceNo));
+
+            CreateMap<Currency, DropDownViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Name));
+
+            CreateMap<FinancialYear, DropDownViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Value, opt => 
+                opt.MapFrom(src => src.Name + " (" + src.StartDate.Date.ToString("MMM d, yyyy") + " - " + src.EndDate.Date.ToString("MMM d, yyyy") + " )"));
+
+            CreateMap<Division, DropDownViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Name));
+
+            CreateMap<Vendor, DropDownViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Name));
+
+            CreateMap<Company, DropDownViewModel>()
+              .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+              .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Name));
+
+            CreateMap<EscalationChainApprover, ApproverViewModel>()
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username));
+
+            CreateMap<ApprovalChainApprover, ApproverViewModel>()
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username));
+
+            CreateMap<EscalationChain, EscalationChainViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Approvers, opt => opt.MapFrom(src => src.Approvers));
+
+            CreateMap<ApprovalChain, ApprovalChainViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Approvers, opt => opt.MapFrom(src => src.Approvers));
+
+            CreateMap<Company, CompanyViewModel>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.CompanyUsers));
+
+            CreateMap<CompanyUser, CompanyUserPermissionViewModel>()
+      .         ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username));
+
+            CreateMap<BusinessUnit, BusinessUnitViewModel>()
+                  .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                  .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                  .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.BusinessUnitUsers));
+
+            CreateMap<ActiveDirectoryUser, ActiveDirectoryUserViewModel>()
+                  .ForMember(dest => dest.Firstname, opt => opt.MapFrom(src => src.Firstname))
+                  .ForMember(dest => dest.Lastname, opt => opt.MapFrom(src => src.Lastname))
+                  .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                  .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
+
+            CreateMap<BusinessUnitUser, BusinessUnitUserPermissionViewModel>()
+            .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username));
+<<<<<<< HEAD
+=======
+
+            CreateMap<Division, DivisionViewModel>()
+                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                 .ForMember(dest => dest.BusinessUnitId, opt => opt.MapFrom(src => src.BusinessUnitId))
+                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                 .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.DivisionUsers));
+
+            CreateMap<DivisionUser, DivisionUserPermissionViewModel>()
+            .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username));
+
+
+            CreateMap<Vendor, VendorViewModel>()
+                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                 .ForMember(dest => dest.ContactNumber, opt => opt.MapFrom(src => src.ContactNumber))
+                 .ForMember(dest => dest.TaxNumber, opt => opt.MapFrom(src => src.TaxNumber));
+>>>>>>> origin/Ag-Dashboard
+        }
+    }
+}

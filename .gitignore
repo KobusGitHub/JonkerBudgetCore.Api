@@ -1,0 +1,12 @@
+*.suo
+*.user
+bin/*
+obj/*
+Debug/*
+Release/*
+bin/
+obj/
+Debug/
+Release/
+.vs/
+logs/

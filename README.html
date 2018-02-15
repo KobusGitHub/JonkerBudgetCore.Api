@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<style>
+		html, body, div, span, applet, object, iframe,
+		p, blockquote, pre,
+		a, abbr, acronym, address, big, cite, code,
+		del, dfn, em, img, ins, kbd, q, s, samp,
+		small, strike, strong, sub, sup, tt, var,
+		b, u, i, center,
+		dl, dt, dd, ol, ul, li,
+		fieldset, form, label, legend,
+		table, caption, tbody, tfoot, thead, tr, th, td,
+		article, aside, canvas, details, embed,
+		figure, figcaption, footer, header, hgroup,
+		menu, nav, output, ruby, section, summary,
+		time, mark, audio, video {			
+			padding: 0;
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline;
+		}
+		/* HTML5 display-role reset for older browsers */
+		article, aside, details, figcaption, figure,
+		footer, header, hgroup, menu, nav, section {
+			display: block;
+		}
+		body {
+			line-height: 1;
+		}
+		ol, ul {
+			list-style: none;
+		}
+		blockquote, q {
+			quotes: none;
+		}
+		blockquote:before, blockquote:after,
+		q:before, q:after {
+			content: '';
+			content: none;
+		}
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
+	</style>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			padding: 5px;
+		}
+		.centered {
+			text-align:center;
+		}
+        .section {
+            border-radius: 10px;
+            width: 75%;
+            margin: auto;
+            margin-bottom: 5px;
+            padding: 5px;
+            background-color: #fff;
+        }
+		.domain {			
+		}
+        .auth {
+        }
+		.api {
+		}
+		.persistence {
+		}
+		.tests {
+		}
+		.logo {
+			width: 375px;
+		}
+		body {
+			background-color:#cbd2d2;
+		}
+		.ice {
+			color:#fff;
+		}
+        .header {
+            margin: 5px;
+        }
+	</style>
+</head>
+<body class="centered">
+	<div class="header">
+		<h1 class="ice">ICE WYVERN</h1>
+		<img src="Wyvern.png" class="logo" />
+	</div>
+	<div>
+		<div class="api section">
+			<div>
+				<h2>API</h2>
+			</div>
+			<div class="centered">
+				<table align="center">
+					<thead>
+						<tr>
+							<th>Component</th>
+							<th>Use Services</th>
+							<th>Use Policies</th>
+							<th>Use Shared Services</th>
+							<th>Use Repositories</th>
+							<th>Use Business Logic</th>
+							<th>Use DbContext</th>
+							<th>Use Save Changes</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Controllers</td>
+							<td>Yes</td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+						</tr>
+					</tbody>
+					<tfoot></tfoot>
+				</table>
+			</div>
+            <div class="view-models">
+                <h2>VIEW MODELS</h2>
+                <div>
+                    <ul style="list-style: none;"></ul>
+                </div>
+            </div>
+		</div>       
+        <div class="auth section">
+            <h2>AUTH</h2>
+            <div>
+                <ul style="list-style: none;">
+                    <li>Encryption</li>
+                    <li>Jwt Issuer</li>
+                </ul>
+            </div>
+        </div>                    
+		<div class="domain section">
+			<div>
+				<h2>DOMAIN</h2>
+			</div>
+			<div>
+				<table align="center">
+					<thead>
+						<tr>
+							<th>Component</th>
+							<th>Use Services</th>
+							<th>Use Policies</th>
+							<th>Use Shared Services</th>
+							<th>Use Repositories</th>
+							<th>Use Business Logic</th>
+							<th>Use DbContext</th>
+							<th>Use Save Changes</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Services</td>
+							<td>No</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<td>Policies</td>
+							<td>No</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>No</td>
+						</tr>
+						<tr>
+							<td>Shared Services</td>
+							<td>No</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>Yes</td>
+							<td>No</td>
+						</tr>
+						<tr>
+							<td>Repositories</td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+							<td>Yes</td>
+							<td>No</td>
+						</tr>
+					</tbody>
+					<tfoot></tfoot>
+				</table>
+			</div>
+            <div class="domain-models">
+                <h2>DOMAIN MODELS</h2>
+                <div>
+                    <ul style="list-style: none;"></ul>
+                </div>
+            </div>
+		</div>
+        <div class="domain-models section">
+            <h2>ENTITIES</h2>
+            <div>
+                <ul style="list-style: none;"></ul>
+            </div>
+        </div>
+		<div class="persistence section">
+			<h2>PERSISTENCE</h2>
+			<div class="centered">
+				<table align="center">
+					<thead>
+						<tr>
+							<th>Component</th>
+							<th>Use Services</th>
+							<th>Use Policies</th>
+							<th>Use Shared Services</th>
+							<th>Use Repositories</th>
+							<th>Use Business Logic</th>
+							<th>Use DbContext</th>
+							<th>Use Save Changes</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Services</td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+							<td>No</td>
+							<td>Yes</td>
+							<td>No</td>
+						</tr>
+					</tbody>
+					<tfoot></tfoot>
+				</table>
+			</div>
+			<div>
+				<ul style="list-style: none;">
+					<li>Entity Framework</li>
+					<li>Sql Server by default</li>
+					<li>Audit Database Context</li>
+				</ul>
+			</div>
+		</div>
+		<div class="tests section">
+			<h2>TESTS</h2>
+            <div class="tests section">
+                <h3>INTEGRATION</h3>
+                <div>
+                    <ul style="list-style: none;">
+                        <li>Integration Tests</li>
+                        <li>Entity Framework InMemoryDatabase</li>
+                        <li>Moq</li>
+                        <li>XUnit</li>
+                    </ul>                   
+                </div>
+            </div>
+            <div class="tests section">
+                <h3>TESTS</h3>
+                <div>
+                    <ul style="list-style: none;">
+                        <li>Unit Tests</li>
+                        <li>Moq</li>
+                        <li>XUnit</li>
+                    </ul>
+                </div>
+            </div>
+		</div>
+	</div>
+</body>
+</html>
